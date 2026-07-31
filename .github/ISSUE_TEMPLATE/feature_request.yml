@@ -1,0 +1,95 @@
+name: Feature or evidence proposal
+description: Propose a kit improvement, compatibility change, or evidence-backed correction.
+title: "[Proposal]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe one focused proposal and distinguish verified facts from assumptions.
+
+        **Do not submit security vulnerabilities or secrets here.** Follow `SECURITY.md` and use GitHub private vulnerability reporting.
+
+  - type: dropdown
+    id: proposal-type
+    attributes:
+      label: Proposal type
+      options:
+        - New or improved kit capability
+        - Clientexec contract correction
+        - Registrar integration pattern
+        - PHP or Clientexec compatibility change
+        - AI-agent compatibility change
+        - Documentation improvement
+        - Validation, CI, or packaging improvement
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or gap
+      description: Explain the user problem, missing context, or incorrect behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the smallest complete change and what should remain out of scope.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: source-authority
+    attributes:
+      label: Evidence classification
+      description: Select every source type supporting the proposal.
+      multiple: true
+      options:
+        - Official Clientexec documentation
+        - Official Clientexec sample registrar
+        - Installed Clientexec runtime or schema
+        - Maintained Clientexec registrar module
+        - Registrar-specific documentation or module
+        - No external evidence required
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources and versions
+      description: Provide public URLs or sanitized evidence descriptions, including Clientexec, PHP, registrar API, and observation dates when relevant.
+      placeholder: "Source, authority, version, date, and redistribution status; or N/A"
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Describe workarounds or competing designs and why this proposal is preferable.
+
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility and security impact
+      description: Identify affected agents, PHP versions, Clientexec versions, file formats, safety controls, or release behavior.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety confirmation
+      options:
+        - label: I searched existing issues and confirmed this proposal is not a duplicate.
+          required: true
+        - label: I separated verified facts from assumptions and registrar-specific observations.
+          required: true
+        - label: I removed credentials, customer data, proprietary files, and unlicensed third-party content.
+          required: true
+        - label: This proposal does not disclose a security vulnerability; security reports follow `SECURITY.md`.
+          required: true
+

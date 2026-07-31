@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Clientexec Registrar Source Manifest",
+  "description": "Provenance, target environment, requested capabilities, and open questions for one Clientexec registrar module.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "registrar",
+    "target",
+    "sources",
+    "requested_capabilities",
+    "open_questions"
+  ],
+  "properties": {
+    "registrar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "display_name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+$",
+          "minLength": 1,
+          "description": "Lowercase alphanumeric Clientexec plugin directory identifier."
+        },
+        "display_name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable registrar name."
+        }
+      }
+    },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "clientexec_version",
+        "php_versions",
+        "sandbox_available"
+      ],
+      "properties": {
+        "clientexec_version": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Target Clientexec version or the literal value unknown."
+        },
+        "php_versions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^\\d+\\.\\d+(?:\\.\\d+)?$"
+          },
+          "description": "PHP versions written as quoted major.minor or major.minor.patch strings."
+        },
+        "sandbox_available": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "const": "unknown"
+            }
+          ],
+          "description": "Whether a registrar sandbox is available."
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "description": "Every source used to design or verify the registrar module.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "location",
+          "authority",
+          "retrieved",
+          "license",
+          "notes"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$",
+            "minLength": 1
+          },
+          "type": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9-]*$",
+            "minLength": 1
+          },
+          "location": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Public URL or workspace-relative path."
+          },
+          "authority": {
+            "type": "string",
+            "enum": [
+              "official",
+              "registrar-support",
+              "registrar-maintained",
+              "runtime-evidence",
+              "user-provided",
+              "community"
+            ]
+          },
+          "retrieved": {
+            "type": "string",
+            "format": "date",
+            "description": "Retrieval date in YYYY-MM-DD format."
+          },
+          "license": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Known license, redistribution status, or unknown."
+          },
+          "notes": {
+            "type": "string",
+            "description": "Scope, limitations, version, or other provenance notes."
+          }
+        }
+      }
+    },
+    "requested_capabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "availability",
+        "registration",
+        "renewal",
+        "transfer",
+        "nameservers",
+        "contacts",
+        "dns",
+        "registrar_lock",
+        "epp",
+        "privacy",
+        "domain_import",
+        "pricing_import",
+        "name_suggestions",
+        "extended_attributes"
+      ],
+      "properties": {
+        "availability": {
+          "type": "boolean"
+        },
+        "registration": {
+          "type": "boolean"
+        },
+        "renewal": {
+          "type": "boolean"
+        },
+        "transfer": {
+          "type": "boolean"
+        },
+        "nameservers": {
+          "type": "boolean"
+        },
+        "contacts": {
+          "type": "boolean"
+        },
+        "dns": {
+          "type": "boolean"
+        },
+        "registrar_lock": {
+          "type": "boolean"
+        },
+        "epp": {
+          "type": "boolean"
+        },
+        "privacy": {
+          "type": "boolean"
+        },
+        "domain_import": {
+          "type": "boolean"
+        },
+        "pricing_import": {
+          "type": "boolean"
+        },
+        "name_suggestions": {
+          "type": "boolean"
+        },
+        "extended_attributes": {
+          "type": "boolean"
+        }
+      }
+    },
+    "open_questions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "description": "Unresolved questions that could affect implementation behavior."
+    }
+  }
+}

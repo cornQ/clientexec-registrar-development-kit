@@ -1,0 +1,312 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1710" viewBox="0 0 1600 1710" role="img" aria-labelledby="title desc">
+  <title id="title">Detailed Clientexec registrar development flowchart</title>
+  <desc id="desc">A decision flow from source review and identity approval through evidence gates, implementation, testing, phase outcomes, retries, and final packaging.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 8 8" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L0,8 L8,4 z" fill="#475569"/>
+    </marker>
+    <marker id="return-arrow" viewBox="0 0 8 8" markerWidth="8" markerHeight="8" refX="8" refY="4" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L0,8 L8,4 z" fill="#ef4444"/>
+    </marker>
+    <style>
+      .title { font: 700 34px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 18px Arial, sans-serif; fill: #475569; }
+      .lane { font: 700 18px Arial, sans-serif; letter-spacing: 1px; fill: #334155; }
+      .node-title { font: 700 18px Arial, sans-serif; fill: #0f172a; }
+      .node-copy { font: 400 15px Arial, sans-serif; fill: #475569; }
+      .decision { font: 700 17px Arial, sans-serif; fill: #0f172a; }
+      .edge-label { font: 700 14px Arial, sans-serif; fill: #334155; }
+      .connector { font: 700 15px Arial, sans-serif; fill: #ffffff; }
+      .return-label { fill: #b91c1c; }
+      .pass-label { fill: #166534; }
+      .skip-label { fill: #92400e; }
+      .arrow { stroke: #475569; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
+      .return { stroke: #ef4444; stroke-width: 2.4; fill: none; marker-end: url(#return-arrow); stroke-dasharray: 7 6; }
+      .return-branch { stroke: #ef4444; stroke-width: 2.4; fill: none; stroke-dasharray: 7 6; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1710" rx="24" fill="#ffffff"/>
+  <rect x="1" y="1" width="1598" height="1708" rx="23" fill="none" stroke="#cbd5e1" stroke-width="2"/>
+
+  <text x="70" y="62" class="title">Development Flowchart</text>
+  <text x="70" y="94" class="subtitle">Detailed decisions, retry paths, enablement rules, and phase progression.</text>
+
+  <rect x="45" y="125" width="350" height="1450" rx="20" fill="#eff6ff" stroke="#93c5fd" stroke-width="2"/>
+  <rect x="430" y="125" width="350" height="1450" rx="20" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2"/>
+  <rect x="815" y="125" width="350" height="1450" rx="20" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <rect x="1200" y="125" width="350" height="1450" rx="20" fill="#ecfdf5" stroke="#86efac" stroke-width="2"/>
+
+  <text x="75" y="165" class="lane">1  DISCOVER AND APPROVE</text>
+  <text x="460" y="165" class="lane">2  EVIDENCE AND IMPLEMENT</text>
+  <text x="845" y="165" class="lane">3  TEST AND DECIDE</text>
+  <text x="1230" y="165" class="lane">4  RECONCILE AND RELEASE</text>
+
+  <g>
+    <rect x="85" y="200" width="270" height="72" rx="13" fill="#ffffff" stroke="#60a5fa" stroke-width="2"/>
+    <text x="220" y="230" text-anchor="middle" class="node-title">Review official sources</text>
+    <text x="220" y="252" text-anchor="middle" class="node-copy">Classify evidence and gaps</text>
+
+    <rect x="85" y="310" width="270" height="72" rx="13" fill="#ffffff" stroke="#60a5fa" stroke-width="2"/>
+    <text x="220" y="340" text-anchor="middle" class="node-title">Suggest registrar identity</text>
+    <text x="220" y="362" text-anchor="middle" class="node-copy">Collect and confirm metadata</text>
+
+    <polygon points="220,420 345,485 220,550 95,485" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+    <text x="220" y="480" text-anchor="middle" class="decision">Suggested identity</text>
+    <text x="220" y="502" text-anchor="middle" class="decision">accepted?</text>
+
+    <rect x="85" y="590" width="270" height="72" rx="13" fill="#ffffff" stroke="#60a5fa" stroke-width="2"/>
+    <text x="220" y="620" text-anchor="middle" class="node-title">Inventory capabilities</text>
+    <text x="220" y="642" text-anchor="middle" class="node-copy">Compare with Clientexec support</text>
+
+    <rect x="85" y="700" width="270" height="86" rx="13" fill="#ffffff" stroke="#60a5fa" stroke-width="2"/>
+    <text x="220" y="731" text-anchor="middle" class="node-title">Share complete phase plan</text>
+    <text x="220" y="753" text-anchor="middle" class="node-copy">Dependencies, tests, blockers,</text>
+    <text x="220" y="773" text-anchor="middle" class="node-copy">and unsupported limitations</text>
+
+    <polygon points="220,825 345,890 220,955 95,890" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+    <text x="220" y="885" text-anchor="middle" class="decision">Plan</text>
+    <text x="220" y="907" text-anchor="middle" class="decision">approved?</text>
+
+    <polygon points="220,985 345,1055 220,1125 95,1055" fill="#dbeafe" stroke="#2563eb" stroke-width="3"/>
+    <text x="220" y="1038" text-anchor="middle" class="decision">Final identity and</text>
+    <text x="220" y="1060" text-anchor="middle" class="decision">output scope</text>
+    <text x="220" y="1082" text-anchor="middle" class="decision">confirmed?</text>
+
+    <rect x="85" y="1170" width="270" height="76" rx="13" fill="#ffffff" stroke="#60a5fa" stroke-width="2"/>
+    <text x="220" y="1200" text-anchor="middle" class="node-title">Revise confirmation block</text>
+    <text x="220" y="1222" text-anchor="middle" class="node-copy">Identity, metadata, scope, or limits</text>
+
+    <path d="M220 272 V302" class="arrow"/>
+    <path d="M220 382 V412" class="arrow"/>
+    <path d="M220 550 V582" class="arrow"/>
+    <path d="M220 662 V692" class="arrow"/>
+    <path d="M220 786 V817" class="arrow"/>
+    <path d="M220 955 V977" class="arrow"/>
+    <text x="233" y="975" class="edge-label">Yes</text>
+    <path d="M95 485 H65" class="return-branch"/>
+    <text x="66" y="468" class="edge-label return-label">No</text>
+    <path d="M95 890 H65" class="return-branch"/>
+    <text x="66" y="873" class="edge-label return-label">No</text>
+    <path d="M220 1125 V1162" class="return"/>
+    <text x="233" y="1152" class="edge-label return-label">No</text>
+    <path d="M85 1208 H65 V346 H85" class="return"/>
+    <text x="232" y="575" class="edge-label">Yes</text>
+  </g>
+
+  <g>
+    <rect x="470" y="200" width="270" height="72" rx="13" fill="#ffffff" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="605" y="230" text-anchor="middle" class="node-title">Run Phase Evidence Gate</text>
+    <text x="605" y="252" text-anchor="middle" class="node-copy">Recheck all phase entry criteria</text>
+
+    <polygon points="605,310 730,375 605,440 480,375" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+    <text x="605" y="370" text-anchor="middle" class="decision">Evidence</text>
+    <text x="605" y="392" text-anchor="middle" class="decision">ready?</text>
+
+    <polygon points="605,475 730,545 605,615 480,545" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+    <text x="605" y="530" text-anchor="middle" class="decision">Required approval or</text>
+    <text x="605" y="552" text-anchor="middle" class="decision">permission confirmed?</text>
+
+    <rect x="470" y="655" width="270" height="72" rx="13" fill="#ffffff" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="605" y="685" text-anchor="middle" class="node-title">Implement one phase</text>
+    <text x="605" y="707" text-anchor="middle" class="node-copy">Keep this capability disabled</text>
+
+    <rect x="470" y="765" width="270" height="72" rx="13" fill="#ffffff" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="605" y="795" text-anchor="middle" class="node-title">Agent-local validation</text>
+    <text x="605" y="817" text-anchor="middle" class="node-copy">Test mappings, failures, and safety</text>
+
+    <polygon points="605,875 730,940 605,1005 480,940" fill="#ede9fe" stroke="#7c3aed" stroke-width="3"/>
+    <text x="605" y="935" text-anchor="middle" class="decision">Local tests</text>
+    <text x="605" y="957" text-anchor="middle" class="decision">pass?</text>
+
+    <rect x="470" y="1045" width="270" height="90" rx="13" fill="#ffffff" stroke="#8b5cf6" stroke-width="2"/>
+    <text x="605" y="1076" text-anchor="middle" class="node-title">Log awaiting kit-user test</text>
+    <text x="605" y="1098" text-anchor="middle" class="node-copy">Enable only in staging</text>
+    <text x="605" y="1118" text-anchor="middle" class="node-copy">and only when required</text>
+
+    <rect x="470" y="1190" width="270" height="70" rx="13" fill="#fff7ed" stroke="#f59e0b" stroke-width="2"/>
+    <text x="605" y="1219" text-anchor="middle" class="node-title">Resolve prerequisites</text>
+    <text x="605" y="1241" text-anchor="middle" class="node-copy">Evidence, decisions, or permission</text>
+
+    <rect x="470" y="1320" width="270" height="70" rx="13" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+    <text x="605" y="1349" text-anchor="middle" class="node-title">Diagnose test failure</text>
+    <text x="605" y="1371" text-anchor="middle" class="node-copy">Code defect or new evidence issue?</text>
+
+    <rect x="470" y="1442" width="270" height="90" rx="13" fill="#fff7ed" stroke="#f59e0b" stroke-width="2"/>
+    <text x="605" y="1473" text-anchor="middle" class="node-title">Mark Blocked or Deferred</text>
+    <text x="605" y="1495" text-anchor="middle" class="node-copy">Keep disabled; only independent</text>
+    <text x="605" y="1515" text-anchor="middle" class="node-copy">phases may continue</text>
+
+    <path d="M605 272 V302" class="arrow"/>
+    <path d="M605 440 V467" class="arrow"/>
+    <text x="618" y="462" class="edge-label">Yes</text>
+    <path d="M605 615 V647" class="arrow"/>
+    <text x="618" y="640" class="edge-label">Yes / not required</text>
+    <path d="M605 727 V757" class="arrow"/>
+    <path d="M605 837 V867" class="arrow"/>
+    <path d="M605 1005 V1037" class="arrow"/>
+    <text x="618" y="1030" class="edge-label">Yes</text>
+
+    <path d="M730 375 H760" class="return-branch"/>
+    <path d="M730 545 H760" class="return-branch"/>
+    <path d="M760 375 V1225 H740" class="return"/>
+    <text x="745" y="358" class="edge-label return-label">No</text>
+    <path d="M470 1225 H425 V250 H470" class="arrow"/>
+    <text x="435" y="1178" class="edge-label">Resolved</text>
+    <path d="M740 1245 H760 V1487 H740" class="return"/>
+    <text x="750" y="1300" text-anchor="end" class="edge-label return-label">Unresolved</text>
+
+    <text x="744" y="528" class="edge-label return-label">No</text>
+
+    <path d="M480 940 H461" class="return"/>
+    <circle cx="445" cy="940" r="16" fill="#ef4444"/>
+    <text x="445" y="945" text-anchor="middle" class="connector">C</text>
+    <text x="452" y="917" class="edge-label return-label">No</text>
+    <path d="M470 1355 H440 V1225 H470" class="return"/>
+    <text x="448" y="1308" class="edge-label return-label">New unknown</text>
+  </g>
+
+  <g>
+    <rect x="855" y="200" width="270" height="86" rx="13" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+    <text x="990" y="231" text-anchor="middle" class="node-title">Kit-user phase tests</text>
+    <text x="990" y="253" text-anchor="middle" class="node-copy">Clientexec staging or</text>
+    <text x="990" y="273" text-anchor="middle" class="node-copy">registrar sandbox</text>
+
+    <polygon points="990,325 1115,390 990,455 865,390" fill="#f1f5f9" stroke="#475569" stroke-width="3"/>
+    <text x="990" y="385" text-anchor="middle" class="decision">Phase</text>
+    <text x="990" y="407" text-anchor="middle" class="decision">result?</text>
+
+    <rect x="835" y="505" width="310" height="86" rx="13" fill="#ecfdf5" stroke="#22c55e" stroke-width="2"/>
+    <text x="990" y="531" text-anchor="middle" class="node-title">Passed: mandatory tests</text>
+    <text x="990" y="551" text-anchor="middle" class="node-title">complete</text>
+    <text x="990" y="575" text-anchor="middle" class="node-copy">Retain only approved enablement</text>
+
+    <rect x="835" y="620" width="310" height="76" rx="13" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+    <text x="990" y="650" text-anchor="middle" class="node-title">Failed: log result and disable</text>
+    <text x="990" y="672" text-anchor="middle" class="node-copy">Append rollback; diagnose before retry</text>
+
+    <rect x="835" y="735" width="310" height="90" rx="13" fill="#fffbeb" stroke="#f59e0b" stroke-width="2"/>
+    <text x="990" y="765" text-anchor="middle" class="node-title">Skipped: warn and disable</text>
+    <text x="990" y="787" text-anchor="middle" class="node-copy">Mark unverified; only independent</text>
+    <text x="990" y="807" text-anchor="middle" class="node-copy">work may continue</text>
+
+    <rect x="835" y="865" width="310" height="82" rx="13" fill="#ffffff" stroke="#64748b" stroke-width="2"/>
+    <text x="990" y="895" text-anchor="middle" class="node-title">Append pass/skip to changelog</text>
+    <text x="990" y="917" text-anchor="middle" class="node-copy">Record rollback status and</text>
+    <text x="990" y="937" text-anchor="middle" class="node-copy">the enablement decision</text>
+
+    <polygon points="990,980 1115,1045 990,1110 865,1045" fill="#f1f5f9" stroke="#475569" stroke-width="3"/>
+    <text x="990" y="1040" text-anchor="middle" class="decision">Dependency-satisfied</text>
+    <text x="990" y="1062" text-anchor="middle" class="decision">phase remains?</text>
+
+    <path d="M990 286 V317" class="arrow"/>
+    <path d="M990 455 V497" class="arrow"/>
+    <text x="1005" y="484" class="edge-label pass-label">Passed</text>
+    <path d="M865 390 H825 V658 H835" class="return"/>
+    <text x="826" y="375" class="edge-label return-label">Failed</text>
+    <path d="M1115 390 H1155 V780 H1145" class="arrow"/>
+    <text x="1100" y="375" class="edge-label skip-label">Skipped</text>
+    <path d="M1145 548 H1195 V906 H1145" class="arrow"/>
+    <path d="M990 825 V865" class="arrow"/>
+    <path d="M990 947 V972" class="arrow"/>
+
+    <path d="M1145 658 H1154" class="return"/>
+    <circle cx="1170" cy="658" r="16" fill="#ef4444"/>
+    <text x="1170" y="663" text-anchor="middle" class="connector">C</text>
+
+    <path d="M846 243 H855" class="arrow"/>
+    <circle cx="830" cy="243" r="16" fill="#475569"/>
+    <text x="830" y="248" text-anchor="middle" class="connector">B</text>
+
+    <path d="M865 1045 H816" class="arrow"/>
+    <circle cx="800" cy="1045" r="16" fill="#475569"/>
+    <text x="800" y="1050" text-anchor="middle" class="connector">A</text>
+    <text x="838" y="1028" class="edge-label">Yes</text>
+  </g>
+
+  <g>
+    <rect x="1240" y="280" width="270" height="86" rx="13" fill="#ffffff" stroke="#22c55e" stroke-width="2"/>
+    <text x="1375" y="311" text-anchor="middle" class="node-title">Final reconciliation</text>
+    <text x="1375" y="333" text-anchor="middle" class="node-copy">Implementation, tests, and</text>
+    <text x="1375" y="353" text-anchor="middle" class="node-copy">enablement must agree</text>
+
+    <rect x="1240" y="430" width="270" height="72" rx="13" fill="#ffffff" stroke="#22c55e" stroke-width="2"/>
+    <text x="1375" y="460" text-anchor="middle" class="node-title">Clean-install validation</text>
+    <text x="1375" y="482" text-anchor="middle" class="node-copy">Smoke-test enabled capabilities</text>
+
+    <rect x="1240" y="565" width="270" height="72" rx="13" fill="#ffffff" stroke="#22c55e" stroke-width="2"/>
+    <text x="1375" y="595" text-anchor="middle" class="node-title">Inspect package</text>
+    <text x="1375" y="617" text-anchor="middle" class="node-copy">Exclude development artifacts</text>
+
+    <polygon points="1375,690 1500,755 1375,820 1250,755" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+    <text x="1375" y="750" text-anchor="middle" class="decision">All release criteria</text>
+    <text x="1375" y="772" text-anchor="middle" class="decision">satisfied?</text>
+
+    <rect x="1240" y="870" width="270" height="86" rx="13" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+    <text x="1375" y="901" text-anchor="middle" class="node-title">Release module</text>
+    <text x="1375" y="923" text-anchor="middle" class="node-copy">Setup/auth passed; unverified work</text>
+    <text x="1375" y="943" text-anchor="middle" class="node-copy">disabled and documented</text>
+
+    <rect x="1240" y="1030" width="270" height="86" rx="13" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+    <text x="1375" y="1061" text-anchor="middle" class="node-title">Not ready: do not release</text>
+    <text x="1375" y="1083" text-anchor="middle" class="node-copy">Resolve blockers; do not release</text>
+    <text x="1375" y="1103" text-anchor="middle" class="node-copy">After correction, restart reconciliation</text>
+
+    <path d="M1375 366 V422" class="arrow"/>
+    <path d="M1375 502 V557" class="arrow"/>
+    <path d="M1375 637 V682" class="arrow"/>
+    <path d="M1375 820 V862" class="arrow"/>
+    <text x="1388" y="848" class="edge-label pass-label">Yes</text>
+    <path d="M1500 755 H1525 V1073 H1510" class="return"/>
+    <text x="1506" y="738" class="edge-label return-label">No</text>
+    <path d="M1375 1116 V1140 H1538 V323 H1510" class="return"/>
+  </g>
+
+  <path d="M345 1055 H410 V185 H605 V200" class="arrow"/>
+  <text x="355" y="1038" class="edge-label">Yes</text>
+
+  <path d="M461 218 H470" class="arrow"/>
+  <circle cx="445" cy="218" r="16" fill="#475569"/>
+  <text x="445" y="223" text-anchor="middle" class="connector">A</text>
+
+  <path d="M605 1135 V1144" class="arrow"/>
+  <circle cx="605" cy="1160" r="16" fill="#475569"/>
+  <text x="605" y="1165" text-anchor="middle" class="connector">B</text>
+
+  <path d="M605 1311 V1320" class="return"/>
+  <circle cx="605" cy="1295" r="16" fill="#ef4444"/>
+  <text x="605" y="1300" text-anchor="middle" class="connector">C</text>
+
+  <path d="M605 1390 V1404" class="return"/>
+  <circle cx="605" cy="1420" r="16" fill="#ef4444"/>
+  <text x="605" y="1425" text-anchor="middle" class="connector">D</text>
+  <text x="625" y="1415" class="edge-label return-label">Code corrected</text>
+
+  <path d="M461 691 H470" class="return"/>
+  <circle cx="445" cy="691" r="16" fill="#ef4444"/>
+  <text x="445" y="696" text-anchor="middle" class="connector">D</text>
+
+  <path d="M740 1487 H990 V1110" class="arrow"/>
+
+  <path d="M1115 1045 H1225 V260 H1375 V280" class="arrow"/>
+  <text x="1130" y="1028" class="edge-label">No</text>
+
+  <rect x="145" y="1590" width="1310" height="82" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="175" y="1638" class="lane">CONNECTOR KEY</text>
+
+  <circle cx="390" cy="1632" r="16" fill="#475569"/>
+  <text x="390" y="1637" text-anchor="middle" class="connector">A</text>
+  <text x="415" y="1638" class="node-copy">Next eligible phase</text>
+
+  <circle cx="660" cy="1632" r="16" fill="#475569"/>
+  <text x="660" y="1637" text-anchor="middle" class="connector">B</text>
+  <text x="685" y="1638" class="node-copy">Approved staging/sandbox test</text>
+
+  <circle cx="930" cy="1632" r="16" fill="#ef4444"/>
+  <text x="930" y="1637" text-anchor="middle" class="connector">C</text>
+  <text x="955" y="1638" class="node-copy">Diagnose failed test</text>
+
+  <circle cx="1200" cy="1632" r="16" fill="#ef4444"/>
+  <text x="1200" y="1637" text-anchor="middle" class="connector">D</text>
+  <text x="1225" y="1638" class="node-copy">Retry corrected code</text>
+</svg>

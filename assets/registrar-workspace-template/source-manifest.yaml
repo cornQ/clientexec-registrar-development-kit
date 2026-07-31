@@ -1,0 +1,49 @@
+# yaml-language-server: $schema=source-manifest.schema.json
+
+registrar:
+  id: example
+  display_name: Example Registrar
+
+target:
+  clientexec_version: unknown
+  php_versions: []
+  sandbox_available: unknown
+
+# Record every source used to design or verify the module. Do not put secrets,
+# session cookies, private tokens, or customer data in this file.
+sources: []
+# Replace the empty array with entries in this form:
+# sources:
+#   - id: official-api-docs
+#     type: official-docs
+#     location: https://registrar.example/developers
+#     authority: official
+#     retrieved: YYYY-MM-DD
+#     license: unknown
+#     notes: Primary REST API documentation
+#
+#   - id: postman-collection
+#     type: postman
+#     location: inputs/postman/registrar.postman_collection.json
+#     authority: official
+#     retrieved: YYYY-MM-DD
+#     license: unknown
+#     notes: Sanitized collection without credentials
+
+requested_capabilities:
+  availability: false
+  registration: false
+  renewal: false
+  transfer: false
+  nameservers: false
+  contacts: false
+  dns: false
+  registrar_lock: false
+  epp: false
+  privacy: false
+  domain_import: false
+  pricing_import: false
+  name_suggestions: false
+  extended_attributes: false
+
+open_questions: []

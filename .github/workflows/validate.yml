@@ -1,0 +1,138 @@
+name: Validate Kit
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validate-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  php-validation:
+    name: PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - '7.4'
+          - '8.0'
+          - '8.1'
+          - '8.2'
+          - '8.3'
+          - '8.4'
+          - '8.5'
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Validate kit
+        run: php -n scripts/validate-kit.php
+
+  powershell-validation:
+    name: PowerShell on Windows
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          coverage: none
+
+      - name: Validate kit
+        shell: pwsh
+        run: ./scripts/validate-kit.ps1 -RequirePhp
+
+  release-package:
+    name: Release packaging smoke test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          coverage: none
+
+      - name: Build test release
+        shell: pwsh
+        run: >
+          ./scripts/package-release.ps1
+          -Version ci-${{ github.run_id }}-${{ github.run_attempt }}
+          -RequirePhp
+
+      - name: Verify test release
+        shell: pwsh
+        run: |
+          $archivePath = (
+              Resolve-Path -LiteralPath (
+                  './dist/clientexec-registrar-development-kit-ci-{0}-{1}.zip' -f
+                      '${{ github.run_id }}',
+                      '${{ github.run_attempt }}'
+              )
+          ).Path
+          $checksumPath = "$archivePath.sha256"
+          $checksumLine = (Get-Content -Raw -LiteralPath $checksumPath).Trim()
+          if ($checksumLine -notmatch '^(?<hash>[0-9a-f]{64})  (?<name>.+\.zip)$') {
+              throw 'Release checksum file has an invalid format.'
+          }
+          if ($Matches['name'] -ne [System.IO.Path]::GetFileName($archivePath)) {
+              throw 'Release checksum filename does not match the archive.'
+          }
+          $actualHash = (
+              Get-FileHash -LiteralPath $archivePath -Algorithm SHA256
+          ).Hash.ToLowerInvariant()
+          if ($actualHash -ne $Matches['hash']) {
+              throw 'Release archive checksum does not match.'
+          }
+
+          Add-Type -AssemblyName System.IO.Compression
+          $archiveStream = [System.IO.File]::OpenRead($archivePath)
+          $archive = New-Object System.IO.Compression.ZipArchive(
+              $archiveStream,
+              [System.IO.Compression.ZipArchiveMode]::Read,
+              $false
+          )
+          try {
+              $entryNames = @($archive.Entries.FullName)
+              if ('RELEASE-MANIFEST.sha256' -notin $entryNames) {
+                  throw 'Release archive is missing its embedded manifest.'
+              }
+              $forbidden = @(
+                  $entryNames |
+                      Where-Object {
+                          $_ -match '(^|/)(clientexec-core-files|real-sample|sample-registrar|workspace)(/|$)'
+                      }
+              )
+              if ($forbidden.Count -gt 0) {
+                  throw "Release contains private paths: $($forbidden -join ', ')"
+              }
+          } finally {
+              $archive.Dispose()
+              $archiveStream.Dispose()
+          }

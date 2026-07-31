@@ -1,0 +1,107 @@
+name: Bug report
+description: Report a reproducible problem in the skill, templates, validators, or packaging tools.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting a problem.
+
+        **Do not submit security vulnerabilities or secrets here.** Follow `SECURITY.md` and use GitHub private vulnerability reporting.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      description: Select the part of the kit where the problem occurs.
+      options:
+        - SKILL.md workflow
+        - Registrar PHP template
+        - Registrar workspace or source manifest
+        - Reference documentation
+        - Validation or audit scripts
+        - Release packaging
+        - GitHub Actions
+        - Agent-specific setup instructions
+        - Other public kit file
+    validations:
+      required: true
+
+  - type: input
+    id: kit-version
+    attributes:
+      label: Kit version
+      description: Provide the release tag or commit hash.
+      placeholder: "Example: v1.0.0 or a1b2c3d"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Identify the operating system, PHP version, PowerShell version, AI agent, and Clientexec version that are relevant.
+      placeholder: |
+        Operating system:
+        PHP:
+        PowerShell:
+        AI agent:
+        Clientexec:
+    validations:
+      required: true
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Problem summary
+      description: Describe the observed problem and why it is a bug.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Provide the smallest sanitized sequence that consistently reproduces the problem.
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: Explain what should have happened.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include sanitized error output when useful.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting evidence
+      description: Link to public documentation or provide sanitized evidence. Identify its authority and version when known.
+      placeholder: "Official documentation URL, sanitized evidence description, or N/A"
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety confirmation
+      options:
+        - label: I searched existing issues and confirmed this is not a duplicate.
+          required: true
+        - label: I removed credentials, cookies, EPP codes, customer data, production domains, account identifiers, and proprietary files.
+          required: true
+        - label: This report does not disclose a security vulnerability; security reports follow `SECURITY.md`.
+          required: true
+

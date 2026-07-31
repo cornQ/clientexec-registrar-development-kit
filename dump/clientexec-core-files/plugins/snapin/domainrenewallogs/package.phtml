@@ -1,0 +1,118 @@
+<div class="resp-tabs-container tab_identifier_parent no-padding">
+    <div>
+        <div class="client-contact-wrapper" id="profile-fields">
+            <div class="cm-holder dt-info">
+                <div class="head padding-bottom">
+                    <div class="dt-header">
+                        <div class="dt-header-left">
+                            <div class="dt-filters">
+
+                            </div>
+                        </div>
+
+                        <div class="dt-header-right">
+                            <div class="filter-group dt-length"></div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="dt-wrapper pull-top">
+                    <div class="table-responsive">
+                        <table id="event-list" class="display" style="width:100%">
+                            <thead>
+                                <tr>
+                                   <th style="text-align: center">
+                                        <input type="checkbox" id="checkAll">
+                                    </th>
+                                    <th class=""><?php echo $this->user->lang('Date'); ?></th>
+                                    <th class=""><?php echo $this->user->lang('Action'); ?></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div class="table-actions">
+
+                        <button class="pill" id="export-button" disabled="disabled">
+                            <i class="fas fa-file-export"></i>
+                            <?php echo $this->user->lang('Export'); ?>
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var domainrenewals = domainrenewals || {};
+    domainrenewals.id = '<?php echo $this->domainId; ?>';
+
+    var ajaxUrl = 'index.php?fuse=home&action=geteventlist&controller=events&limit=0';
+    var table;
+    $(document).ready(function () {
+        table = $('#event-list').DataTable({
+            "searching": false,
+            "ajax": {
+                url: ajaxUrl,
+                dataSrc: 'data',
+                data: function(d) {
+                    d.eventtype = 'domainrenewals';
+                    d.itemid = domainrenewals.id;
+                }
+            },
+            columnDefs: [{
+                targets: 0,
+                orderable: false,
+                className: 'select-checkbox',
+                checkboxes: {
+                    selectRow: true
+                },
+                width: '5%'
+            }],
+            select: {
+                style: 'multi',
+                selector: 'td:first-child'
+            },
+            "columns": [
+                { data: null, defaultContent: '', orderable: false, },
+                { "data": "logdate" },
+                { "data": "logaction" },
+            ],
+            "order": [[1, 'desc']]
+        });
+    });
+
+    $('#export-button').on('click', function(e) {
+        e.preventDefault();
+        window.open(
+            'index.php?action=exportdomainrenewals&controller=events&fuse=home&sessionHash=' + gHash + '&ids=' + table.getSelectedRows(),
+            '_blank'
+        );
+    });
+
+    table.on('select.dt deselect.dt', function() {
+        disableButtons();
+
+        var selectedRows = table.rows({ selected: true }).count();
+
+        if (selectedRows > 0) {
+            enableButtons();
+        }
+    });
+
+    enableButtons = function () {
+        const $button = $('#export-button');
+
+        // Enable export button
+        $button.prop('disabled', false);
+    };
+
+    disableButtons = function () {
+        const $button = $('#export-button');
+
+        // Disable export button
+        $button.prop('disabled', true);
+    };
+</script>

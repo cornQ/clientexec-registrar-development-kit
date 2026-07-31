@@ -1,0 +1,4 @@
+interface:
+  display_name: "Clientexec Registrar Development Kit"
+  short_description: "Build safe Clientexec registrar modules"
+  default_prompt: "Use $clientexec-registrar-development-kit to verify the supplied registrar sources, ask only for missing information, and build or audit a safe Clientexec registrar module."
