@@ -1,6 +1,6 @@
 ---
 name: clientexec-registrar-development-kit
-description: Build, audit, extend, and test Clientexec domain registrar modules from registrar API documentation. Use when creating a new Clientexec registrar plugin, implementing registration or domain-management capabilities, reviewing an existing Plugin{Name}.php module, adding TLD-specific extended attributes, or validating plugin metadata, actions, safety, and method contracts.
+description: Build, audit, extend, and test Clientexec domain registrar modules from registrar API documentation. Use when creating a new Clientexec registrar plugin, implementing registration or domain-management capabilities, adding customer-facing registrar public panels, reviewing an existing Plugin{Name}.php module, adding TLD-specific extended attributes, or validating plugin metadata, actions, safety, and method contracts.
 ---
 
 # Build Clientexec Registrar Modules
@@ -157,6 +157,8 @@ Read [references/official-sources.md](references/official-sources.md) when verif
 Read [references/method-contracts.md](references/method-contracts.md) while implementing inputs, outputs, action wrappers, DNS, transfer, pricing, or imports.
 
 Read [references/features-and-actions.md](references/features-and-actions.md) while editing `$features`, `getVariables()`, registered actions, or `plugin.ini`.
+
+Read [references/public-panels.md](references/public-panels.md) when adding a customer-facing domain-management menu item or form through registrar `$features['publicPanels']`, or when deciding whether an admin/staff surface requires a separate snap-in.
 
 Read [references/extra-attributes.md](references/extra-attributes.md) when a TLD requires eligibility, consent, identity, or other extension-specific fields.
 
